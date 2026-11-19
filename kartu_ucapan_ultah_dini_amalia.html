@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun, Dini Amalia! 🎂💖</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Fredoka & Quicksand untuk kesan bulat, gemas, dan manis -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti untuk efek perayaan meriah -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Fredoka', 'cursive', 'sans-serif'],
+                        sans: ['Quicksand', 'sans-serif'],
+                    },
+                    colors: {
+                        pastel: {
+                            pink: '#ffd6e7',
+                            rose: '#ff8fab',
+                            deep: '#fb6f92',
+                            cream: '#fff9f2',
+                            lavender: '#e8dff5',
+                            yellow: '#fcf6bd',
+                            mint: '#d0f4de',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animasi Kustom Lucu & Halus */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(3deg); }
+        }
+
+        @keyframes pulseHeart {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.12); }
+        }
+
+        @keyframes flickerFlame {
+            0%, 100% { transform: scale(1) rotate(-2deg); opacity: 1; }
+            25% { transform: scale(1.08, 0.94) rotate(2deg); opacity: 0.92; }
+            50% { transform: scale(0.95, 1.06) rotate(-1deg); opacity: 1; }
+            75% { transform: scale(1.04, 0.96) rotate(3deg); opacity: 0.95; }
+        }
+
+        @keyframes smokeRise {
+            0% { transform: translateY(0) scale(0.6); opacity: 0.85; }
+            100% { transform: translateY(-35px) scale(1.6); opacity: 0; }
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.88) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .animate-float {
+            animation: floatSlow 3.5s ease-in-out infinite;
+        }
+
+        .animate-float-delay {
+            animation: floatSlow 4.2s ease-in-out 1s infinite;
+        }
+
+        .animate-heartbeat {
+            animation: pulseHeart 1.6s ease-in-out infinite;
+        }
+
+        .candle-flame {
+            animation: flickerFlame 0.9s infinite alternate;
+            transform-origin: bottom center;
+        }
+
+        .candle-smoke {
+            animation: smokeRise 1.6s ease-out forwards;
+        }
+
+        .animate-pop-in {
+            animation: popIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        /* Pola Titik-titik Pastel Lucu */
+        .bg-polkadot {
+            background-color: #fff9f2;
+            background-image: radial-gradient(#ffc2d1 1.6px, transparent 1.6px), radial-gradient(#e8dff5 1.6px, #fff9f2 1.6px);
+            background-size: 36px 36px;
+            background-position: 0 0, 18px 18px;
+        }
+
+        /* Efek Amplop Surat Cinta */
+        .envelope-flap {
+            clip-path: polygon(0 0, 50% 58%, 100% 0);
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: top;
+        }
+
+        .envelope-open .envelope-flap {
+            transform: rotateX(180deg);
+        }
+
+        /* Desain Sobekan Kupon */
+        .ticket-card {
+            position: relative;
+        }
+        .ticket-card::before, .ticket-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 18px;
+            height: 18px;
+            background-color: #fff9f2;
+            border-radius: 9999px;
+            transform: translateY(-50%);
+            border: 2px solid #fbcfe8;
+        }
+        .ticket-card::before {
+            left: -10px;
+        }
+        .ticket-card::after {
+            right: -10px;
+        }
+    </style>
+</head>
+<body class="bg-polkadot text-slate-700 min-h-screen flex flex-col items-center justify-center overflow-x-hidden selection:bg-pink-200 selection:text-pink-900">
+
+    <!-- Dekorasi Mengambang Latar Belakang -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div class="absolute top-8 left-6 text-3xl sm:text-4xl animate-float opacity-70">🎈</div>
+        <div class="absolute top-16 right-8 text-3xl sm:text-4xl animate-float-delay opacity-70">✨</div>
+        <div class="absolute bottom-14 left-8 text-3xl sm:text-4xl animate-float-delay opacity-70">🧸</div>
+        <div class="absolute bottom-12 right-6 text-3xl sm:text-4xl animate-float opacity-70">🍓</div>
+        <div class="absolute top-1/2 left-3 text-2xl animate-float opacity-50 hidden sm:block">🌸</div>
+        <div class="absolute top-1/3 right-4 text-2xl animate-float-delay opacity-50 hidden sm:block">💖</div>
+    </div>
+
+    <!-- Notifikasi Toast Lucu (Pengganti alert) -->
+    <div id="toast-box" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 pointer-events-none flex flex-col items-center gap-2 w-full max-w-sm px-4"></div>
+
+    <!-- Tombol Kontrol Musik (Muncul setelah amplop dibuka) -->
+    <button id="music-toggle-btn" onclick="toggleMusic()" class="hidden fixed bottom-5 right-5 z-40 bg-white/90 backdrop-blur-md border-2 border-pink-300 text-pink-600 hover:bg-pink-50 px-4 py-2.5 rounded-full shadow-lg font-display font-semibold text-xs sm:text-sm flex items-center gap-2 transition-transform active:scale-95">
+        <span id="music-icon" class="text-base">🎵</span>
+        <span id="music-label">Musik: Nyala</span>
+    </button>
+
+    <!-- ======================================================== -->
+    <!-- LAYAR 1: AMPLOP SURAT CINTA INTERAKTIF (PEMBUKA)         -->
+    <!-- ======================================================== -->
+    <section id="intro-screen" class="relative z-10 w-full max-w-md px-5 py-10 flex flex-col items-center text-center">
+        <div class="mb-5 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border-2 border-pink-200 shadow-sm text-xs font-bold text-pink-600">
+            <span>📅 23 Februari 2008</span>
+            <span>•</span>
+            <span>Special Delivery 💌</span>
+        </div>
+
+        <!-- Ilustrasi Amplop Interaktif -->
+        <div id="envelope-wrapper" onclick="openBirthdayCard()" class="cursor-pointer group relative w-72 sm:w-80 h-48 sm:h-52 bg-gradient-to-b from-pink-200 to-pink-300 rounded-3xl shadow-xl shadow-pink-300/40 border-4 border-white flex flex-col items-center justify-end p-5 transition-transform duration-300 hover:scale-105">
+            <!-- Tutup Segitiga Amplop -->
+            <div class="envelope-flap absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-pink-300 to-rose-300 rounded-t-2xl z-20 shadow-sm"></div>
+            
+            <!-- Stiker Segel Hati di Tengah -->
+            <div class="absolute top-14 left-1/2 -translate-x-1/2 z-30 w-14 h-14 rounded-full bg-white border-4 border-pink-200 shadow-md flex items-center justify-center text-2xl animate-heartbeat group-hover:scale-110 transition-transform">
+                💖
+            </div>
+
+            <!-- Kertas Surat Mengintip -->
+            <div class="w-11/12 h-28 bg-white rounded-2xl shadow-inner flex flex-col items-center justify-end pb-3 px-3 z-10">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-pink-400">Untuk Kesayangan</span>
+                <p class="font-display font-bold text-base sm:text-lg text-slate-800 leading-tight">Dini Amalia 🎀</p>
+            </div>
+        </div>
+
+        <h1 class="font-display text-2xl sm:text-3xl font-bold text-slate-800 mt-7 leading-snug">
+            Ada Paket Kebahagiaan<br>
+            <span class="text-pink-500">Spesial untuk Dini Amalia 💌</span>
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-600 mt-2 max-w-xs font-medium">
+            Pastikan volume HP/laptop menyala ya, terus klik tombol di bawah buat buka suratnya!
+        </p>
+
+        <button onclick="openBirthdayCard()" class="mt-6 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-display font-bold text-base sm:text-lg px-8 py-3.5 rounded-full shadow-lg shadow-pink-400/40 border-2 border-white transition-all hover:-translate-y-1 active:scale-95 flex items-center gap-2.5">
+            <span>Buka Sekarang</span>
+            <span class="text-xl">🎁</span>
+        </button>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- LAYAR 2: KARTU UCAPAN UTAMA & MINI-GAMES LUCU            -->
+    <!-- ======================================================== -->
+    <main id="main-card-screen" class="hidden relative z-10 w-full max-w-2xl px-4 sm:px-6 py-8 sm:py-12 space-y-7">
+
+        <!-- 1. HEADER & BADGE TANGGAL SPESIAL -->
+        <div class="animate-pop-in bg-white/95 backdrop-blur-md rounded-[2rem] p-6 sm:p-8 shadow-xl shadow-pink-200/50 border-4 border-pink-200 text-center relative overflow-hidden">
+            <div class="absolute -top-6 -right-6 w-24 h-24 bg-pastel-yellow rounded-full opacity-60"></div>
+            <div class="absolute -bottom-6 -left-6 w-24 h-24 bg-pastel-lavender rounded-full opacity-60"></div>
+
+            <div class="relative z-10">
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100 text-pink-600 font-display font-semibold text-xs sm:text-sm mb-3">
+                    🎂 23 Februari 2008 • Happy Birthday!
+                </span>
+                <h1 class="font-display text-3xl sm:text-4xl font-bold text-slate-800 leading-tight">
+                    Selamat Ulang Tahun,<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-rose-500 to-purple-500">Dini Amalia! 🎂✨</span>
+                </h1>
+
+                <!-- Fun Facts Usia & Perjalanan Hidup Dini -->
+                <div id="age-fun-facts" class="mt-5 grid grid-cols-3 gap-2.5 sm:gap-4 bg-pastel-cream p-3.5 sm:p-4 rounded-2xl border-2 border-pink-100">
+                    <!-- Diisi otomatis oleh JavaScript berdasarkan tanggal lahir 23 Feb 2008 -->
+                </div>
+                <p id="zodiac-fun-note" class="text-xs font-semibold text-purple-600 mt-2.5 bg-pastel-lavender/60 inline-block px-3.5 py-1 rounded-full">
+                    🐟 Zodiak Pisces • Si Paling Manis & Penyayang
+                </p>
+            </div>
+        </div>
+
+        <!-- 2. KUE ULANG TAHUN INTERAKTIF (TIUP LILIN) -->
+        <div class="animate-pop-in bg-white/95 rounded-[2rem] p-6 sm:p-8 shadow-lg shadow-pink-200/40 border-4 border-pastel-yellow text-center">
+            <h2 class="font-display text-xl sm:text-2xl font-bold text-slate-800">Make a Wish Dulu, Sayang! 🕯️✨</h2>
+            <p id="candle-instruction" class="text-xs sm:text-sm text-slate-600 mt-1 font-medium">
+                Pejamkan mata sebentar, berdoa yang paling baik, lalu klik lilinnya atau tekan tombol tiup di bawah!
+            </p>
+
+            <!-- Ilustrasi Kue Ulang Tahun Lucu (CSS + SVG) -->
+            <div onclick="blowCandle()" class="cursor-pointer select-none my-6 mx-auto w-56 sm:w-64 pt-6 pb-2 flex flex-col items-center group" title="Klik untuk meniup lilin!">
+                <!-- Lilin & Api -->
+                <div class="relative flex flex-col items-center">
+                    <!-- Api Lilin -->
+                    <div id="flame-el" class="candle-flame w-5 h-8 bg-gradient-to-t from-amber-500 via-yellow-300 to-white rounded-full shadow-[0_0_18px_#fbbf24] mb-0.5"></div>
+                    <!-- Asap setelah ditiup (awalnya hidden) -->
+                    <div id="smoke-el" class="hidden text-xl mb-0.5">💨</div>
+                    <!-- Batang Lilin -->
+                    <div class="w-4 h-12 rounded-t-md bg-gradient-to-b from-pink-400 to-pink-500 border-2 border-white shadow-sm flex flex-col justify-evenly overflow-hidden">
+                        <div class="w-full h-1.5 bg-white/70 -rotate-12"></div>
+                        <div class="w-full h-1.5 bg-white/70 -rotate-12"></div>
+                        <div class="w-full h-1.5 bg-white/70 -rotate-12"></div>
+                    </div>
+                </div>
+
+                <!-- Lapisan Kue Atas -->
+                <div class="w-36 sm:w-40 h-12 bg-gradient-to-r from-pink-200 via-pink-100 to-pink-200 rounded-t-2xl border-2 border-pink-300 relative flex items-start justify-around overflow-hidden shadow-inner">
+                    <!-- Lelehan Krim Putih -->
+                    <div class="w-6 h-5 bg-white rounded-b-full"></div>
+                    <div class="w-7 h-7 bg-white rounded-b-full"></div>
+                    <div class="w-6 h-4 bg-white rounded-b-full"></div>
+                    <div class="w-7 h-6 bg-white rounded-b-full"></div>
+                    <div class="w-6 h-5 bg-white rounded-b-full"></div>
+                </div>
+
+                <!-- Lapisan Kue Bawah -->
+                <div class="w-48 sm:w-52 h-14 bg-gradient-to-r from-rose-300 via-pink-300 to-rose-300 rounded-t-xl rounded-b-2xl border-2 border-rose-400 relative flex items-center justify-center gap-3 shadow-md">
+                    <span class="text-sm">🍓</span>
+                    <span class="font-display font-bold text-white text-xs tracking-wider drop-shadow">DINI'S DAY</span>
+                    <span class="text-sm">🍓</span>
+                </div>
+
+                <!-- Piring Kue -->
+                <div class="w-56 sm:w-60 h-3.5 bg-white border-2 border-slate-200 rounded-full shadow-sm mt-0.5"></div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center gap-3">
+                <button id="blow-btn" onclick="blowCandle()" class="bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white font-display font-bold text-sm sm:text-base px-6 py-3 rounded-full shadow-md transition-all active:scale-95">
+                    Tiup Lilin & Buat Permohonan 🌬️
+                </button>
+                <button id="relight-btn" onclick="relightCandle()" class="hidden bg-pink-100 hover:bg-pink-200 text-pink-700 font-display font-semibold text-xs sm:text-sm px-4 py-3 rounded-full transition-colors">
+                    Nyalakan Lilin Lagi 🔥
+                </button>
+            </div>
+        </div>
+
+        <!-- 3. SURAT UCAPAN MANIS & GEMAS -->
+        <div class="animate-pop-in bg-white/95 rounded-[2rem] p-6 sm:p-8 shadow-lg shadow-pink-200/40 border-4 border-pastel-lavender relative">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-11 h-11 rounded-2xl bg-pink-100 flex items-center justify-center text-2xl shrink-0">
+                    💌
+                </div>
+                <div>
+                    <h2 class="font-display text-lg sm:text-xl font-bold text-slate-800">Surat Kecil Buat Dini Amalia</h2>
+                    <p class="text-xs text-slate-500 font-semibold">Dibaca pelan-pelan sambil senyum ya ✨</p>
+                </div>
+            </div>
+
+            <div class="space-y-3.5 text-sm sm:text-base text-slate-700 leading-relaxed font-medium bg-pastel-cream/80 p-5 rounded-2xl border border-pink-100">
+                <p>Hai cantikku, <strong class="text-pink-600">Dini Amalia</strong>! 🌸</p>
+                <p>
+                    Selamat ulang tahun ya! Nggak kerasa anak manis yang lahir tanggal <strong>23 Februari 2008</strong> ini makin dewasa, makin gemesin, dan makin bikin aku bersyukur setiap hari karena punya kamu.
+                </p>
+                <p>
+                    Semoga di usia yang baru ini, semua hal baik selalu ngejar kamu—mulai dari kesehatan, rezeki jajan yang lancar terus, impian-impian yang tercapai, sampai kebahagiaan yang nggak ada habisnya. Kalau lagi capek atau badmood, inget ya ada aku yang selalu siap jadi tempat pulang dan pendengar setia cerita kamu.
+                </p>
+                <p class="font-bold text-pink-600 pt-1">
+                    Tetap jadi Dini yang ceria, baik hati, dan gemesin kayak sekarang ya. Happy birthday, kesayangan! 💖🧸
+                </p>
+            </div>
+        </div>
+
+        <!-- 4. VOUCHER PACAR EKSKLUSIF (BISA DIKLAIM) -->
+        <div class="animate-pop-in bg-white/95 rounded-[2rem] p-6 sm:p-8 shadow-lg shadow-pink-200/40 border-4 border-pink-200">
+            <div class="text-center mb-5">
+                <span class="inline-block px-3.5 py-1 rounded-full bg-pastel-mint text-emerald-800 font-display font-bold text-xs mb-2">
+                    🎟️ Hadiah Spesial Tanpa Syarat
+                </span>
+                <h2 class="font-display text-xl sm:text-2xl font-bold text-slate-800">Voucher Pacar Eksklusif</h2>
+                <p class="text-xs sm:text-sm text-slate-600 mt-1">Klik kupon di bawah buat klaim hadiahnya! Screenshot & kirim ke aku buat ditukerin 😝</p>
+            </div>
+
+            <div id="vouchers-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <!-- Dirender secara dinamis via JS -->
+            </div>
+        </div>
+
+        <!-- 5. MINI-GAME TOMBOL KABUR-KABURAN LUCU -->
+        <div class="animate-pop-in bg-gradient-to-br from-pink-100 via-pastel-cream to-pastel-lavender rounded-[2rem] p-6 sm:p-8 shadow-lg shadow-pink-200/40 border-4 border-white text-center relative overflow-hidden">
+            <div class="text-3xl mb-2 animate-bounce">🥺👉👈</div>
+            <h2 class="font-display text-xl sm:text-2xl font-bold text-slate-800">Pertanyaan Jujur Hari Ini...</h2>
+            <p class="text-sm sm:text-base text-slate-700 font-semibold mt-1">
+                Dini Amalia sayang banget sama aku nggak hari ini?
+            </p>
+
+            <!-- Area Interaksi Tombol -->
+            <div id="dodge-arena" class="relative mt-6 min-h-[130px] flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onclick="handleSayangClick()" class="z-20 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-display font-bold text-base sm:text-lg px-7 py-3.5 rounded-full shadow-lg shadow-pink-400/40 transition-transform hover:scale-105 active:scale-95">
+                    Sayang Banget! 💖
+                </button>
+
+                <button id="runaway-btn" onmouseenter="moveRunawayButton()" ontouchstart="moveRunawayButton(event)" onclick="moveRunawayButton()" class="z-10 bg-white hover:bg-slate-50 text-slate-600 border-2 border-slate-200 font-display font-bold text-sm sm:text-base px-6 py-3 rounded-full shadow-sm transition-all duration-200">
+                    Enggak 😝
+                </button>
+            </div>
+
+            <p id="love-response-text" class="hidden mt-4 font-display font-bold text-pink-600 text-base sm:text-lg bg-white/90 py-3 px-5 rounded-2xl border-2 border-pink-200">
+                Yeay! Aku juga sayang banget sama Dini Amalia selamanya! 🥰💞✨
+            </p>
+        </div>
+
+        <!-- Footer Kecil -->
+        <footer class="text-center pb-6 text-xs font-semibold text-slate-500">
+            Dibuat dengan penuh cinta khusus untuk ulang tahun <span class="text-pink-600">Dini Amalia</span> 💖
+        </footer>
+    </main>
+
+    <!-- JAVASCRIPT INTERAKTIF -->
+    <script>
+        // ==========================================
+        // 1. DATA & KONFIGURASI ULANG TAHUN DINI
+        // ==========================================
+        const birthDate = new Date(2008, 1, 23); // 23 Februari 2008 (Bulan dimulai dari 0 -> 1 = Februari)
+
+        const vouchersData = [
+            {
+                id: 'v1',
+                emoji: '🧋',
+                title: 'Voucher Jajan Boba / Makanan Favorit',
+                desc: 'Bebas pilih menu apa aja tanpa lihat harga, aku yang traktir!',
+                claimed: false
+            },
+            {
+                id: 'v2',
+                emoji: '😇',
+                title: 'Voucher Bebas Ngambek 1x',
+                desc: 'Berlaku saat lagi badmood, otomatis dimanja & dibeliin camilan.',
+                claimed: false
+            },
+            {
+                id: 'v3',
+                emoji: '🫂',
+                title: 'Voucher Peluk & Dengerin Cerita',
+                desc: 'Curhat sepuasnya kapan aja tanpa dipotong, plus peluk hangat.',
+                claimed: false
+            },
+            {
+                id: 'v4',
+                emoji: '🛵',
+                title: 'Voucher Jalan-Jalan Ke Mana Aja',
+                desc: 'Tunjuk satu tempat yang pengen dikunjungi, langsung kita gas!',
+                claimed: false
+            }
+        ];
+
+        // ==========================================
+        // 2. WEB AUDIO API (MELODI HAPPY BIRTHDAY LEMBUT)
+        // ==========================================
+        let audioCtx = null;
+        let isMusicPlaying = false;
+        let melodyTimeout = null;
+
+        // Frekuensi nada untuk lagu "Happy Birthday to You"
+        const notes = {
+            C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23,
+            G4: 392.00, A4: 440.00, Bb4: 466.16, C5: 523.25
+        };
+
+        const happyBirthdayMelody = [
+            { note: notes.C4, dur: 0.35 }, { note: notes.C4, dur: 0.25 },
+            { note: notes.D4, dur: 0.6 },  { note: notes.C4, dur: 0.6 },
+            { note: notes.F4, dur: 0.6 },  { note: notes.E4, dur: 1.1 },
+
+            { note: notes.C4, dur: 0.35 }, { note: notes.C4, dur: 0.25 },
+            { note: notes.D4, dur: 0.6 },  { note: notes.C4, dur: 0.6 },
+            { note: notes.G4, dur: 0.6 },  { note: notes.F4, dur: 1.1 },
+
+            { note: notes.C4, dur: 0.35 }, { note: notes.C4, dur: 0.25 },
+            { note: notes.C5, dur: 0.6 },  { note: notes.A4, dur: 0.6 },
+            { note: notes.F4, dur: 0.6 },  { note: notes.E4, dur: 0.6 },
+            { note: notes.D4, dur: 1.1 },
+
+            { note: notes.Bb4, dur: 0.35 }, { note: notes.Bb4, dur: 0.25 },
+            { note: notes.A4, dur: 0.6 },   { note: notes.F4, dur: 0.6 },
+            { note: notes.G4, dur: 0.6 },   { note: notes.F4, dur: 1.3 }
+        ];
+
+        function playTone(freq, duration) {
+            if (!audioCtx || !isMusicPlaying) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'sine'; // Suara kotak musik lembut
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+            gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.08, audioCtx.currentTime + 0.04);
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
+        }
+
+        function startBirthdayMusic() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            isMusicPlaying = true;
+            updateMusicButtonUI();
+            playMelodyLoop(0);
+        }
+
+        function playMelodyLoop(index) {
+            if (!isMusicPlaying) return;
+            if (index >= happyBirthdayMelody.length) {
+                melodyTimeout = setTimeout(() => playMelodyLoop(0), 1200);
+                return;
+            }
+            const item = happyBirthdayMelody[index];
+            playTone(item.note, item.dur);
+            melodyTimeout = setTimeout(() => playMelodyLoop(index + 1), item.dur * 1000 + 70);
+        }
+
+        function toggleMusic() {
+            if (isMusicPlaying) {
+                isMusicPlaying = false;
+                clearTimeout(melodyTimeout);
+                updateMusicButtonUI();
+                showToast('Musik dijeda 🔇');
+            } else {
+                startBirthdayMusic();
+                showToast('Memutar melodi ulang tahun 🎶');
+            }
+        }
+
+        function updateMusicButtonUI() {
+            const icon = document.getElementById('music-icon');
+            const label = document.getElementById('music-label');
+            if (isMusicPlaying) {
+                icon.textContent = '🎵';
+                label.textContent = 'Musik: Nyala';
+            } else {
+                icon.textContent = '🔇';
+                label.textContent = 'Musik: Mati';
+            }
+        }
+
+        // ==========================================
+        // 3. KALKULASI USIA & FUN FACTS DINI
+        // ==========================================
+        function renderAgeStats() {
+            const now = new Date();
+            let ageYears = now.getFullYear() - birthDate.getFullYear();
+            const m = now.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && now.getDate() < birthDate.getDate())) {
+                ageYears--;
+            }
+
+            const diffTime = Math.abs(now - birthDate);
+            const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const totalWeeks = Math.floor(totalDays / 7);
+
+            const container = document.getElementById('age-fun-facts');
+            container.innerHTML = `
+                <div class="bg-white rounded-xl p-2.5 shadow-sm border border-pink-100">
+                    <span class="font-display font-bold text-xl sm:text-2xl text-pink-500 block">${ageYears} Thn</span>
+                    <span class="text-[11px] font-bold text-slate-500">Usia Gemas</span>
+                </div>
+                <div class="bg-white rounded-xl p-2.5 shadow-sm border border-pink-100">
+                    <span class="font-display font-bold text-xl sm:text-2xl text-purple-500 block">${totalDays.toLocaleString('id-ID')}</span>
+                    <span class="text-[11px] font-bold text-slate-500">Hari Bersinar</span>
+                </div>
+                <div class="bg-white rounded-xl p-2.5 shadow-sm border border-pink-100">
+                    <span class="font-display font-bold text-xl sm:text-2xl text-amber-500 block">${totalWeeks.toLocaleString('id-ID')}</span>
+                    <span class="text-[11px] font-bold text-slate-500">Minggu Manis</span>
+                </div>
+            `;
+        }
+
+        // ==========================================
+        // 4. BUKA AMPLOP & CONFETTI MERIAH
+        // ==========================================
+        function firePastelConfetti() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 90,
+                    spread: 75,
+                    origin: { y: 0.6 },
+                    colors: ['#ff8fab', '#ffc2d1', '#cdb4db', '#fcf6bd', '#bde0fe']
+                });
+            }
+        }
+
+        function openBirthdayCard() {
+            const envelope = document.getElementById('envelope-wrapper');
+            envelope.classList.add('envelope-open');
+
+            startBirthdayMusic();
+            firePastelConfetti();
+
+            setTimeout(() => {
+                document.getElementById('intro-screen').classList.add('hidden');
+                document.getElementById('main-card-screen').classList.remove('hidden');
+                document.getElementById('music-toggle-btn').classList.remove('hidden');
+                renderAgeStats();
+                renderVouchers();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 650);
+        }
+
+        // ==========================================
+        // 5. KUE ULANG TAHUN & TIUP LILIN
+        // ==========================================
+        let isCandleLit = true;
+
+        function blowCandle() {
+            if (!isCandleLit) return;
+            isCandleLit = false;
+
+            document.getElementById('flame-el').classList.add('hidden');
+            const smoke = document.getElementById('smoke-el');
+            smoke.classList.remove('hidden');
+            smoke.classList.add('candle-smoke');
+
+            document.getElementById('candle-instruction').innerHTML = `
+                <strong class="text-pink-600">Yeay, lilinnya sudah ditiup! 🎉</strong> Semoga semua doa & harapan Dini Amalia terkabul tahun ini ya!
+            `;
+            document.getElementById('blow-btn').classList.add('hidden');
+            document.getElementById('relight-btn').classList.remove('hidden');
+
+            firePastelConfetti();
+            showToast('✨ Permohonan terkirim ke langit! Happy Birthday Dini!');
+        }
+
+        function relightCandle() {
+            isCandleLit = true;
+            document.getElementById('flame-el').classList.remove('hidden');
+            const smoke = document.getElementById('smoke-el');
+            smoke.classList.add('hidden');
+            smoke.classList.remove('candle-smoke');
+
+            document.getElementById('candle-instruction').textContent = 'Lilinnya menyala lagi! Mau buat permohonan kedua? Klik tiup lagi ya 🕯️';
+            document.getElementById('blow-btn').classList.remove('hidden');
+            document.getElementById('relight-btn').classList.add('hidden');
+        }
+
+        // ==========================================
+        // 6. VOUCHER PACAR EKSKLUSIF
+        // ==========================================
+        function renderVouchers() {
+            const grid = document.getElementById('vouchers-grid');
+            grid.innerHTML = vouchersData.map(v => `
+                <div onclick="claimVoucher('${v.id}')" class="ticket-card cursor-pointer rounded-2xl p-4 border-2 transition-all ${
+                    v.claimed
+                        ? 'bg-emerald-50/90 border-emerald-300'
+                        : 'bg-pastel-cream hover:bg-pink-50 border-pink-200 hover:-translate-y-0.5 shadow-sm'
+                }">
+                    <div class="flex items-start gap-3 px-1">
+                        <div class="text-2xl sm:text-3xl shrink-0 mt-0.5">${v.emoji}</div>
+                        <div class="flex-grow">
+                            <h3 class="font-display font-bold text-sm text-slate-800 leading-snug">${v.title}</h3>
+                            <p class="text-xs text-slate-600 mt-1 leading-relaxed">${v.desc}</p>
+                            <div class="mt-3">
+                                ${
+                                    v.claimed
+                                        ? '<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-500 text-white font-display font-bold text-[11px]">Terklaim ✅</span>'
+                                        : '<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-pink-500 text-white font-display font-bold text-[11px]">Klik untuk Klaim 🎁</span>'
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function claimVoucher(id) {
+            const voucher = vouchersData.find(v => v.id === id);
+            if (!voucher) return;
+
+            if (!voucher.claimed) {
+                voucher.claimed = true;
+                renderVouchers();
+                firePastelConfetti();
+                showToast(`Yay! "${voucher.title}" berhasil diklaim Dini! 💖`);
+            } else {
+                showToast('Voucher ini sudah kamu klaim sayang, tinggal ditukerin! 😆');
+            }
+        }
+
+        // ==========================================
+        // 7. GIMMICK TOMBOL KABUR-KABURAN
+        // ==========================================
+        let dodgeCount = 0;
+        const funnyTexts = [
+            'Eits, meleset! 😜',
+            'Nggak kena wlee 😝',
+            'Tombolnya lagi lari 🏃‍♂️💨',
+            'Pencet yang pink aja dong 🥺',
+            'Gabisa dipencet pokoknya! 💖'
+        ];
+
+        function moveRunawayButton(e) {
+            if (e) e.preventDefault();
+            const btn = document.getElementById('runaway-btn');
+            const arena = document.getElementById('dodge-arena');
+
+            const arenaRect = arena.getBoundingClientRect();
+            const maxX = Math.max(40, arenaRect.width - 130);
+            const maxY = Math.max(30, arenaRect.height - 50);
+
+            const randomX = Math.floor(Math.random() * maxX) - (maxX / 2);
+            const randomY = Math.floor(Math.random() * maxY) - (maxY / 2);
+
+            btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            btn.textContent = funnyTexts[dodgeCount % funnyTexts.length];
+            dodgeCount++;
+        }
+
+        function handleSayangClick() {
+            const responseText = document.getElementById('love-response-text');
+            responseText.classList.remove('hidden');
+            document.getElementById('runaway-btn').classList.add('hidden');
+            firePastelConfetti();
+            showToast('Jawaban paling benar sedunia! 💖🥰');
+        }
+
+        // ==========================================
+        // 8. NOTIFIKASI TOAST HELPER
+        // ==========================================
+        function showToast(text) {
+            const box = document.getElementById('toast-box');
+            const toast = document.createElement('div');
+            toast.className = 'bg-slate-800/95 text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-full shadow-lg border border-pink-300/40 transition-all duration-300 transform -translate-y-2 opacity-0 text-center';
+            toast.textContent = text;
+            box.appendChild(toast);
+
+            requestAnimationFrame(() => {
+                toast.classList.remove('-translate-y-2', 'opacity-0');
+            });
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', '-translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
